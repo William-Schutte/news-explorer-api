@@ -1,2 +1,4 @@
 # news-explorer-api
-API for News-Explorer
+## William Schutte, 2020
+
+This repo is the custom API for News-Explorer, a news-searching React App.
