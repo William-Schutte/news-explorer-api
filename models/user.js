@@ -32,7 +32,7 @@ const userSchema = new mongoose.Schema({
 // for password encryption, which is handled automatically below.
 // See: https://mongoosejs.com/docs/2.7.x/docs/methods-statics.html
 
-userSchema.statics.userLogin = (email, password) => {
+userSchema.statics.userLogin = function (email, password) {
   return this.findOne({ email }).select('+password').then((user) => {
     if (!user) {
       return Promise.reject(new Error('Incorrect email/password'));

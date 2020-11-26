@@ -1,6 +1,7 @@
-const { json } = require('body-parser');
+const { NODE_ENV, JWT_KEY } = process.env;
 const User = require('../models/user.js');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 
 const getUserInfo = (req, res, next) => {
   User.findById(req.user._id)
@@ -33,7 +34,7 @@ const userSignup = (req, res, next) => {
   const { email, name } = req.body;
   bcrypt.hash(req.body.password, 10).then((hash) => {
     User.create({ name, email, password: hash })
-      .then((user) => res.status(201).send({ data: user }))
+      .then((user) => res.status(201).send({ data: { name: user.name, email: user.email, _id: user._id } }))
       .catch(next);
   })
 }

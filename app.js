@@ -5,6 +5,7 @@ const usersRouter = require('./routes/users');
 const { userLogin, userSignup } = require('./controllers/users');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const { requestLogger, errorLogger } = require('./middleware/logger');
 const { PORT = 3000 } = process.env;
 const app = express();
 
@@ -14,6 +15,7 @@ mongoose.connect('mongodb://localhost:27017/news-exp-db', {
   useFindAndModify: false,
 });
 
+app.use(requestLogger);
 app.use(bodyParser.json());
 
 app.post('/signup', userSignup);
@@ -23,4 +25,9 @@ app.use(auth);
 app.use('/users', usersRouter);
 app.use('/articles', articlesRouter);
 
+app.use(errorLogger);
+app.use((err, req, res, next) => {
+  // Error handling
+  res.status(500).send({ message: 'Error' });
+})
 app.listen(PORT);
