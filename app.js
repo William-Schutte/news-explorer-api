@@ -13,6 +13,7 @@ mongoose.connect('mongodb://localhost:27017/news-exp-db', {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
+  useUnifiedTopology: true,
 });
 
 app.use(requestLogger);
@@ -28,6 +29,9 @@ app.use('/articles', articlesRouter);
 app.use(errorLogger);
 app.use((err, req, res, next) => {
   // Error handling
-  res.status(500).send({ message: 'Error' });
-})
+  let { statusCode = 500, message } = err;
+  res.status(statusCode).send({
+    message: (statusCode === 500) ? 'Server error' : message
+  });
+});
 app.listen(PORT);
