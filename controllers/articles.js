@@ -1,3 +1,4 @@
+const { NotFoundError } = require('../errors/errors');
 const Article = require('../models/article');
 
 const getArticles = (req, res, next) => {
@@ -16,8 +17,8 @@ const addArticle = (req, res, next) => {
 
 const deleteArticle = (req, res, next) => {
   Article.findOneAndRemove({ _id: req.params.articleId, owner: req.user._id })
-    .then((article) => res.send({ data: article }))
-    .catch(next);
+    .then((article) => res.send({ data: article, message: "Article successfully deleted" }))
+    .catch(() => next(new NotFoundError('Article not found or incorrect owner')));
 }
 
 module.exports = {

@@ -1,25 +1,27 @@
 const { NODE_ENV, JWT_KEY } = process.env;
 const jwt = require('jsonwebtoken');
-//const LoginError = require('../errors/login-err');
+const { AuthError } = require('../errors/errors');
 
 module.exports = (req, res, next) => {
   const { authorization } = req.headers;
-  if (!authorization || !authorization.startsWith('Bearer ')) {
-    const err = new Error('Authorization Required');
-    next(err);
-  }
+  req.user = { _id: '5fbfe45c68ea616df60b1175' };
 
-  const token = authorization.replace('Bearer ', '');
-  let payload;
+  // if (!authorization || !authorization.startsWith('Bearer ')) {
+  //   const err = new AuthError('Authorization Required');
+  //   next(err);
+  // }
 
-  try {
-    payload = jwt.verify(token, NODE_ENV === 'production' ? JWT_KEY : 'secret_key');
-  } catch (err) {
-    const err2 = new Error('Authorization Verification Failure');
-    next(err2);
-  }
+  // const token = authorization.replace('Bearer ', '');
+  // let payload;
 
-  req.user = payload;
+  // try {
+  //   payload = jwt.verify(token, JWT_KEY);
+  // } catch (err) {
+  //   const err2 = new AuthError('Authorization Verification Failure');
+  //   next(err2);
+  // }
+
+  // req.user = payload;
   next();
 };
 

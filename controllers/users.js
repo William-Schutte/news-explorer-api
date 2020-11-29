@@ -24,6 +24,7 @@ const userLogin = (req, res, next) => {
         user: {
           name: user.name,
           email: user.email,
+          _id: user._id,
         }
       });
     })
