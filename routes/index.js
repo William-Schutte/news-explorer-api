@@ -1,6 +1,5 @@
 const router = require('express').Router();
 const { celebrate, Joi } = require('celebrate');
-
 const { userSignup, userLogin } = require('../controllers/users');
 const auth = require('../middleware/auth');
 const usersRouter = require('./users');
@@ -21,8 +20,7 @@ router.post('/signin', celebrate({
   }),
 }), userLogin);
 
-router.use(auth);
-router.use('/users', usersRouter);
-router.use('/articles', articlesRouter);
+router.use('/users', auth, usersRouter);
+router.use('/articles', auth, articlesRouter);
 
 module.exports = router;
