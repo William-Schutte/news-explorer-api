@@ -1,4 +1,4 @@
-const { isCelebrateError, celebrate, Joi } = require('celebrate');
+const { isCelebrateError } = require('celebrate');
 
 module.exports = (err, req, res, next) => {
   // Error handling
@@ -8,6 +8,6 @@ module.exports = (err, req, res, next) => {
     message = 'Invalid input. Data validation error.';
   }
   res.status(statusCode).send({
-    message: (statusCode === 500) ? 'Server error' : message
+    message: (statusCode === 500) ? 'Server error' : message,
   });
-}
+};

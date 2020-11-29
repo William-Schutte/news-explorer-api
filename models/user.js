@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     minlength: 2,
     maxlength: 30,
-  }
+  },
 });
 
 // This static method is defined directly on the model and can be used just like
@@ -42,8 +42,8 @@ userSchema.statics.userLogin = function (email, password) {
         return Promise.reject(new Error('Incorrect email/password'));
       }
       return user;
-    })
+    });
   });
-}
+};
 
 module.exports = mongoose.model('user', userSchema);

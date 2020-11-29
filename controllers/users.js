@@ -1,7 +1,7 @@
 const { NODE_ENV, JWT_KEY } = process.env;
-const User = require('../models/user.js');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
+const User = require('../models/user.js');
 
 const getUserInfo = (req, res, next) => {
   User.findById(req.user._id)
@@ -16,7 +16,7 @@ const userLogin = (req, res, next) => {
       const token = jwt.sign(
         { _id: user._id },
         NODE_ENV === 'production' ? JWT_KEY : 'secret_key',
-        { expiresIn: '7d' }
+        { expiresIn: '7d' },
       );
       res.cookie('token', token, { httpOnly: true });
       res.status(201).send({
@@ -25,19 +25,23 @@ const userLogin = (req, res, next) => {
           name: user.name,
           email: user.email,
           _id: user._id,
-        }
+        },
       });
     })
     .catch(next);
-}
+};
 
 const userSignup = (req, res, next) => {
   const { email, name } = req.body;
   bcrypt.hash(req.body.password, 10).then((hash) => {
     User.create({ name, email, password: hash })
-      .then((user) => res.status(201).send({ data: { name: user.name, email: user.email, _id: user._id } }))
+      .then((user) => res.status(201).send({ data: {
+        name: user.name,
+        email: user.email,
+        _id: user._id,
+      } }))
       .catch(next);
-  })
-}
+  });
+};
 
 module.exports = { getUserInfo, userLogin, userSignup };

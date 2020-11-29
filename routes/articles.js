@@ -11,8 +11,8 @@ router.post('/', celebrate({
     date: Joi.string().required(),
     source: Joi.string().required(),
     link: Joi.string().required(),
-    image: Joi.string().required()
-  })
+    image: Joi.string().required(),
+  }),
 }), addArticle);
 router.delete('/:articleId', deleteArticle);
 
