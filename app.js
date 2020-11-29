@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const { requestLogger, errorLogger } = require('./middleware/logger');
 const errorHandler = require('./middleware/errorHandler');
 const routes = require('./routes/index');
-const { PORT, DB_ADDRESS } = process.env;
+const { PORT = 3000, DB_ADDRESS } = process.env;
 const app = express();
 
 mongoose.connect(DB_ADDRESS, {
