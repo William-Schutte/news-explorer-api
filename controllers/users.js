@@ -1,4 +1,4 @@
-const { JWT_KEY } = process.env;
+const { NODE_ENV, JWT_KEY } = process.env;
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const User = require('../models/user.js');
@@ -15,7 +15,7 @@ const userLogin = (req, res, next) => {
     .then((user) => {
       const token = jwt.sign(
         { _id: user._id },
-        JWT_KEY,
+        NODE_ENV === 'production' ? JWT_KEY : 'secret_key',
         { expiresIn: '7d' },
       );
       res.cookie('token', token, { httpOnly: true });
