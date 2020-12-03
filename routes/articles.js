@@ -2,6 +2,7 @@ const router = require('express').Router();
 const { celebrate, Joi } = require('celebrate');
 const { getArticles, addArticle, deleteArticle } = require('../controllers/articles');
 
+// Article routes below for retrieving saved articles, adding and deleting articles
 router.get('/', getArticles);
 router.post('/', celebrate({
   body: Joi.object().keys({

@@ -5,6 +5,8 @@ const auth = require('../middleware/auth');
 const usersRouter = require('./users');
 const articlesRouter = require('./articles');
 
+// This is the main router, all requests are processed here
+
 router.post('/signup', celebrate({
   body: Joi.object().keys({
     name: Joi.string().required().min(2).max(30),

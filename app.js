@@ -4,9 +4,12 @@ const helmet = require('helmet');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
+// Middleware functions
 const limiter = require('./middleware/rateLimiter');
 const { requestLogger, errorLogger } = require('./middleware/logger');
 const errorHandler = require('./middleware/errorHandler');
+
+// Main routes file
 const routes = require('./routes/index');
 
 const { PORT = 3000, DB_ADDRESS = 'mongodb://localhost:27017/dev-db' } = process.env;
