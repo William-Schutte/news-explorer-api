@@ -25,10 +25,12 @@ mongoose.connect(DB_ADDRESS, {
 
 // Express Rate Limiter will limit too many requests from the same IP
 app.use(limiter);
-// NPM Helmet middleware, sets HTTP headers
-app.use(helmet());
+
 app.use(cors());
 app.options('*', cors());
+
+// NPM Helmet middleware, sets HTTP headers
+app.use(helmet());
 
 // Log the request and parse the body into JSON
 app.use(requestLogger);
