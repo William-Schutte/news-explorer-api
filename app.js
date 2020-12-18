@@ -3,6 +3,7 @@ const express = require('express');
 const helmet = require('helmet');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 // Middleware functions
 const limiter = require('./middleware/rateLimiter');
@@ -26,6 +27,8 @@ mongoose.connect(DB_ADDRESS, {
 app.use(limiter);
 // NPM Helmet middleware, sets HTTP headers
 app.use(helmet());
+app.use(cors());
+app.options('*', cors());
 
 // Log the request and parse the body into JSON
 app.use(requestLogger);
