@@ -28,10 +28,10 @@ mongoose.connect(DB_ADDRESS, {
 //   allowedHeaders: ['Content-type', 'Authorization'],
 // };
 // app.use(cors(corsOptions));
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  next();
-});
+// app.use((req, res, next) => {
+//   res.header('Access-Control-Allow-Origin', '*');
+//   next();
+// });
 
 // Express Rate Limiter will limit too many requests from the same IP
 app.use(limiter);
