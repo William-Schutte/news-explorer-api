@@ -23,16 +23,14 @@ mongoose.connect(DB_ADDRESS, {
   useUnifiedTopology: true,
 });
 
-// Express Rate Limiter will limit too many requests from the same IP
-app.use(limiter);
-
 const corsOptions = {
   origin: /https:\/\/(www\.)?ws\.news\.students\.nomoreparties\.site\S*/,
   allowedHeaders: ['Content-type', 'Authorization'],
 };
-
 app.use(cors(corsOptions));
-app.options('*', cors());
+
+// Express Rate Limiter will limit too many requests from the same IP
+app.use(limiter);
 
 // NPM Helmet middleware, sets HTTP headers
 app.use(helmet());
